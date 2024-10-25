@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Portfolio | Data Engineer</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Animate.css CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <!-- Font Awesome CDN -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <!-- Particles.js CDN -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #292828;
+            color: white;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 200vh;
+            /* Extends the height to cover Hero + Projects sections */
+            top: 0;
+            left: 0;
+            z-index: -1;
+            /* Ensure the particles are behind the content */
+        }
+
+
+        header {
+            background-color: transparent;
+            /* Make sure header is transparent */
+            z-index: 10;
+            /* Ensure the header stays above the particles but below the content */
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
+        /* Custom styles for form-contact inputs and textarea */
+        .form-contact input[type="text"],
+        .form-contact input[type="email"],
+        .form-contact textarea {
+            background-color: #696969;
+            /* Set background to #696969 */
+            color: #282828;
+            /* Set text color to #282828 */
+            outline: none;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Custom focus ring for inputs and textarea in form-contact */
+        .form-contact input[type="text"]:focus,
+        .form-contact input[type="email"]:focus,
+        .form-contact textarea:focus {
+            color: #FFFAEF;
+            /* Text color when focused */
+            background-color: #682222;
+            /* Keep the background color */
+            outline: none;
+            box-shadow: 0 0 0 2px #FFFAEF;
+            /* Focus ring effect */
+        }
+
+        /* Exclude the submit button from the custom styles */
+        .form-contact button {
+            /* No changes here, the submit button keeps its own styles */
+        }
+
+        .hero-content,
+        #projects {
+            position: relative;
+            z-index: 10;
+            /* Keep content above the particles */
+        }
+
+        .dark-mode-toggle {
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background-color: white;
+            color: black;
+            display: flex;
+            align-items: center;
+        }
+
+        body.light-mode .dark-mode-toggle {
+            background-color: black;
+            color: white;
+        }
+
+        /* Adjust icon colors based on mode */
+        body.light-mode #sunIcon {
+            display: none;
+        }
+
+        body.light-mode #moonIcon {
+            display: inline;
+        }
+
+        body:not(.light-mode) #moonIcon {
+            display: none;
+        }
+
+        body:not(.light-mode) #sunIcon {
+            display: inline;
+        }
+
+        .hero-content {
+            z-index: 10;
+            position: relative;
+        }
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .flip-card {
+            background-color: transparent;
+            width: 100%;
+            height: 300px;
+            perspective: 1000px;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flip-card-front {
+            background-color: #696969;
+            color: white;
+        }
+
+        .flip-card-back {
+            background-color: #FFFAEF;
+            color: #282828;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        a.learn-more-link {
+            color: #6F2F91;
+
+        }
+
+        a:hover.learn-more-link {
+            color: #696969;
+
+        }
+
+        a {
+            color: #FFFAEF;
+        }
+
+        a:hover {
+            color: white;
+        }
+
+        .btn {
+            background-color: #6F2F91;
+            transition: background-color 0.3s ease, color 0.3s ease !important;
+        }
+
+        .btn:hover {
+            background-color: #FFFAEF !important;
+            color: #6F2F91 !important;
+        }
+
+        /* Grayscale effect for logos and hover effect */
+        .img-logo {
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+
+        .img-logo:hover {
+            filter: grayscale(0%);
+        }
+
+        body.light-mode {
+            background-color: #FBFBFB;
+            /* Off-white background */
+            color: #696969;
+        }
+
+        body.light-mode .flip-card-front {
+            background-color: #f7f7f7;
+            color: black;
+        }
+
+        body.light-mode .flip-card-back {
+            background-color: red;
+            color: white;
+        }
+
+        body.light-mode h1,
+        body.light-mode p,
+        body.light-mode h2 {
+            color: #282828;
+        }
+
+        body.light-mode .btn {
+            background-color: red;
+            color: #FFFAEF;
+        }
+
+        body.light-mode .btn:hover {
+            background-color: #282828 !important;
+            color: #FFFAEF !important;
+        }
+
+        body.light-mode a {
+            color: #696969;
+        }
+
+        body.light-mode a:hover {
+            color: red;
+        }
+
+        /* Dark mode toggle button - circular design with sticky behavior */
+        .dark-mode-toggle {
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background-color: white;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: fixed;
+            /* Make the button fixed to stay in place during scroll */
+            top: 20px;
+            /* Distance from the top of the viewport */
+            right: 20px;
+            /* Distance from the right side of the viewport */
+            z-index: 1000;
+            /* Ensure the button stays above other elements */
+        }
+
+        /* Dark mode for the button in light mode */
+        body.light-mode .dark-mode-toggle {
+            background-color: black;
+            color: white;
+        }
+
+        /* Sun and moon icons visibility */
+        #sunIcon {
+            display: none;
+        }
+
+        #moonIcon {
+            display: inline;
+        }
+
+        body.light-mode #sunIcon {
+            display: inline;
+        }
+
+        body.light-mode #moonIcon {
+            display: none;
+        }
+
+        /* Light Colors */
+        .text-lt-tomato-red {
+            color: #E53C38;
+        }
+
+        .text-lt-peach-cream {
+            color: #FBEBD8;
+        }
+
+        .text-lt-ivory-white {
+            color: #FFFAEF;
+        }
+
+        .bg-lt-tomato-red {
+            background-color: #E53C38;
+        }
+
+        .bg-lt-peach-cream {
+            background-color: #FBEBD8;
+        }
+
+        .bg-lt-ivory-white {
+            background-color: #FFFAEF;
+        }
+
+        /* Dark Colors */
+        .text-dk-dark-gray {
+            color: #282828;
+        }
+
+        .text-dk-mid-gray {
+            color: #696969;
+        }
+
+        .text-dk-purple-plum {
+            color: #6F2F91;
+        }
+
+        .bg-dk-dark-gray {
+            background-color: #282828;
+        }
+
+        .bg-dk-mid-gray {
+            background-color: #696969;
+        }
+
+        .bg-dk-purple-plum {
+            background-color: #6F2F91;
+        }
+
+        /* Hover and Transition States */
+        .hover-bg-lt-tomato-red:hover {
+            background-color: #E53C38;
+        }
+
+        .hover-bg-lt-peach-cream:hover {
+            background-color: #FBEBD8;
+        }
+
+        .hover-bg-lt-ivory-white:hover {
+            background-color: #FFFAEF;
+        }
+
+        .hover-bg-dk-dark-gray:hover {
+            background-color: #282828;
+        }
+
+        .hover-bg-dk-mid-gray:hover {
+            background-color: #696969;
+        }
+
+        .hover-bg-dk-purple-plum:hover {
+            background-color: #6F2F91;
+        }
+
+        /* Transition effect */
+        .transition-colors {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="text-white">
+    <header class="w-full py-4 bg-transparent z-10">
+        <nav class="max-w-7xl mx-auto flex justify-center items-center">
+            <!-- Logo/Title Container -->
+            <div id="logoContainer" class="text-2xl font-bold absolute left-4">
+                <!-- <a href="#hero" id="logoText" class="text-white">Data Engineer Portfolio</a> -->
+                <!-- Moon icon for dark mode (hidden initially) -->
+                <svg id="logoMoonIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden text-white" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 12.79A9 9 0 0112.21 3 7 7 0 1012 21a9 9 0 009-8.21z" />
+                </svg>
+            </div>
+
+            <!-- Centered Navigation Links -->
+            <ul class="flex space-x-6">
+                <li>
+                    <a href="docs/resume.pdf" download
+                        class="btn px-6 py-2 rounded-lg hover:bg-white hover:text-black transition duration-300">
+                        Hire!
+                    </a>
+
+                </li>
+                <li><a href="#projects" class="hover:text-gray-400">Projects</a></li>
+                <li><a href="#contact" class="hover:text-gray-400 pr-8">Contact</a></li>
+            </ul>
+
+            <!-- Dark Mode Toggle Button with SVG Icons (without text) -->
+            <button id="darkModeToggle"
+                class="dark-mode-toggle flex items-center justify-center w-10 h-10 rounded-full absolute right-4">
+                <!-- Sun Icon -->
+                <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-yellow-500 hidden" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 3v1m0 16v1m8.66-8.66l-.7-.7m-12.02 0l-.7.7m10.02-10.02l-.7-.7m-7.6 0l-.7.7M16 12h1m-14 0h1m9.66 5.66l-.7.7m-4.96 0l-.7-.7" />
+                    <circle cx="12" cy="12" r="3" />
+                </svg>
+                <!-- Moon Icon (shown initially) -->
+                <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 12.79A9 9 0 0112.21 3 7 7 0 1012 21a9 9 0 009-8.21z" />
+                </svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Particles.js container -->
+    <div id="particles-js"></div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative h-screen flex flex-col items-center justify-center text-center">
+        <div class="hero-content z-10">
+            <h1 class="text-5xl font-bold animate__animated animate__fadeInDown code-font">Hi, I'm a Data Engineer</h1>
+            <p class="mt-4 text-xl animate__animated animate__fadeInUp">I build data pipelines and transform data into
+                valuable insights.</p>
+            <a href="#projects"
+                class="mt-6 inline-block btn py-2 px-6 rounded-full animate__animated animate__bounceIn">Explore
+                My Work</a>
+        </div>
+    </section>
+
+    <!-- Particles.js Configuration -->
+    <script>
+
+        particlesJS('particles-js',
+            {
+                "particles": {
+                    "number": {
+                        "value": 80,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#FFFFFF"
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false
+                    },
+                    "size": {
+                        "value": 10,
+                        "random": true
+                    },
+                    "line_linked": {
+                        "enable": true,
+                        "distance": 150,
+                        "color": "#FBEBD8",
+                        "opacity": 0.4,
+                        "width": 1
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 4,
+                        "direction": "none",
+                        "random": false,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "canvas",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "repulse"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        }
+                    },
+                    "modes": {
+                        "repulse": {
+                            "distance": 100,
+                            "duration": 0.4
+                        }
+                    }
+                },
+                "retina_detect": true
+            });
+
+        const toggleBtn = document.getElementById('darkModeToggle');
+        const body = document.body;
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+
+            // Toggling icons based on light mode
+            if (body.classList.contains('light-mode')) {
+                sunIcon.style.display = 'inline';
+                moonIcon.style.display = 'none';
+            } else {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'inline';
+            }
+        });
+    </script>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-8">Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3 class="text-2xl font-bold">Data Pipeline Optimization</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="text-lg">Optimized ETL pipeline reducing processing time by 30%.
+                                <a href="#" class="text-white learn-more-link">Learn more</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3 class="text-2xl font-bold">Cloud Data Warehouse</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="text-lg">Built scalable data warehouse on AWS.
+                                <a href="#" class="text-white learn-more-link">Learn more</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3 class="text-2xl font-bold">Real-time Data Integration</h3>
+                        </div>
+                        <div class="flip-card-back">
+                            <p class="text-lg">Integrated real-time data streams using Kafka.
+                                <a href="#" class="text-white learn-more-link">Learn more</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section (Replaced with Logos) -->
+    <section id="skills" class="py-16 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- <h2 class="text-4xl font-bold text-center text-white mb-8">Skills</h2> -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <img src="https://img.icons8.com/color/100/000000/sql.png" alt="SQL" class="mx-auto img-logo">
+                    <p class="mt-4 text-xl">SQL</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://img.icons8.com/color/100/000000/python.png" alt="Python" class="mx-auto img-logo">
+                    <p class="mt-4 text-xl">Python</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://img.icons8.com/color/100/000000/data-configuration.png" alt="ETL"
+                        class="mx-auto img-logo">
+                    <p class="mt-4 text-xl">ETL Tools</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://img.icons8.com/color/100/000000/cloud.png" alt="Cloud" class="mx-auto img-logo">
+                    <p class="mt-4 text-xl">Cloud Platforms</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+<!-- Contact Section -->
+<section id="contact" class="py-16 bg-dk-dark-gray">
+    <div class="max-w-7xl mx-auto px-6">
+        <h2 class="text-4xl font-bold text-center text-white mb-8">Contact Me</h2>
+        <form action="https://formspree.io/f/{your-form-id}" method="POST" class="max-w-xl mx-auto form-contact">
+            <div class="mb-4">
+                <label for="name" class="block text-white">Name</label>
+                <input type="text" id="name" name="name" class="w-full px-4 py-2 rounded-lg bg-gray-900 text-white">
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-white">Email</label>
+                <input type="email" id="email" name="email"
+                    class="w-full px-4 py-2 rounded-lg bg-gray-900 text-white">
+            </div>
+            <div class="mb-4">
+                <label for="message" class="block text-white">Message</label>
+                <textarea id="message" name="message" rows="4"
+                    class="w-full px-4 py-2 rounded-lg bg-gray-900 text-white"></textarea>
+            </div>
+            <button type="submit" class="btn w-full py-2 px-4 text-white rounded-lg ">Send
+                Message</button>
+        </form>
+    </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer class="py-4 bg-#292828 text-center text-white">
+        <p>&copy; 2024 Data Engineer Portfolio | Built with Tailwind CSS and Alpine.js</p>
+        <div class="mt-2">
+            <a href="https://github.com" target="_blank" class="mx-2 hover:text-#8730ef"><i
+                    class="fab fa-github"></i></a>
+            <a href="https://linkedin.com" target="_blank" class="mx-2 hover:text-#8730ef"><i
+                    class="fab fa-linkedin"></i></a>
+        </div>
+    </footer>
+
+    <!-- Alpine.js CDN -->
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
+</body>
+
+</html>
